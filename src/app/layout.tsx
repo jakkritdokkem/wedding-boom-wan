@@ -39,19 +39,19 @@ const plusJakarta = Plus_Jakarta_Sans({
 const { couple, venue } = WEDDING_DATA;
 
 export const metadata: Metadata = {
-  title: `${couple.groom.nicknameEn} & ${couple.bride.nicknameEn} Wedding Invitation | ${couple.hashtag}`,
-  description: `ขอเรียนเชิญร่วมงานมงคลสมรสระหว่าง ${couple.groom.nameTh} (${couple.groom.nicknameTh}) & ${couple.bride.nameTh} (${couple.bride.nicknameTh}) ${couple.weddingDateThaiDisplay} ณ ${venue.name}`,
+  title: `${couple.bride.nicknameEn} & ${couple.groom.nicknameEn} Wedding Invitation | ${couple.hashtag}`,
+  description: `ขอเรียนเชิญร่วมงานมงคลสมรสระหว่าง ${couple.bride.nameTh} (${couple.bride.nicknameTh}) & ${couple.groom.nameTh} (${couple.groom.nicknameTh}) ${couple.weddingDateThaiDisplay} ณ ${venue.name}`,
   openGraph: {
-    title: `${couple.groom.nicknameEn} & ${couple.bride.nicknameEn} Wedding Invitation`,
-    description: `ขอเรียนเชิญร่วมเป็นเกียรติในพิธีมงคลสมรส วันเสาร์ที่ 28 พฤศจิกายน 2569 ณ ${venue.name}`,
-    url: 'https://guy-praew-wedding.com',
-    siteName: `${couple.groom.nicknameEn} & ${couple.bride.nicknameEn} Wedding`,
+    title: `${couple.bride.nicknameEn} & ${couple.groom.nicknameEn} Wedding Invitation`,
+    description: `ขอเรียนเชิญร่วมเป็นเกียรติในพิธีมงคลสมรส ${couple.weddingDateThaiDisplay} ณ ${venue.name}`,
+    url: 'https://boom-wan-wedding.vercel.app',
+    siteName: `${couple.bride.nicknameEn} & ${couple.groom.nicknameEn} Wedding`,
     images: [
       {
         url: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&auto=format&fit=crop&q=80',
         width: 1200,
         height: 630,
-        alt: `${couple.groom.nicknameEn} & ${couple.bride.nicknameEn} Wedding Invitation`,
+        alt: `${couple.bride.nicknameEn} & ${couple.groom.nicknameEn} Wedding Invitation`,
       },
     ],
     locale: 'th_TH',
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${couple.groom.nicknameEn} & ${couple.bride.nicknameEn} Wedding Invitation`,
+    title: `${couple.bride.nicknameEn} & ${couple.groom.nicknameEn} Wedding Invitation`,
     description: `ขอเรียนเชิญร่วมงานมงคลสมรส ${couple.weddingDateThaiDisplay}`,
     images: ['https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&auto=format&fit=crop&q=80'],
   },

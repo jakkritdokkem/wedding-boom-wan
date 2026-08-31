@@ -64,12 +64,12 @@ export function OurStorySection() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm text-[#47572a]">
             <div className="p-4 bg-white/85 rounded-2xl border border-[#c9ceb8]/50 shadow-sm">
-              <p className="font-semibold text-[#47572a] font-thai-serif">{couple.groom.parentTh}</p>
-              <p className="text-[#66754e] mt-0.5 font-thai-serif">บิดา-มารดา เจ้าบ่าว</p>
-            </div>
-            <div className="p-4 bg-white/85 rounded-2xl border border-[#c9ceb8]/50 shadow-sm">
               <p className="font-semibold text-[#47572a] font-thai-serif">{couple.bride.parentTh}</p>
               <p className="text-[#66754e] mt-0.5 font-thai-serif">บิดา-มารดา เจ้าสาว</p>
+            </div>
+            <div className="p-4 bg-white/85 rounded-2xl border border-[#c9ceb8]/50 shadow-sm">
+              <p className="font-semibold text-[#47572a] font-thai-serif">{couple.groom.parentTh}</p>
+              <p className="text-[#66754e] mt-0.5 font-thai-serif">บิดา-มารดา เจ้าบ่าว</p>
             </div>
           </div>
         </div>

@@ -54,7 +54,7 @@ export default function Home() {
           <div className="flex items-center justify-center gap-2 text-[#c9ceb8]">
             <Sparkles className="w-4 h-4" />
             <span className="font-serif-luxury text-xl tracking-[0.15em] uppercase font-light text-[#f4f1ea]">
-              {couple.groom.nicknameEn} &amp; {couple.bride.nicknameEn}
+              {couple.bride.nicknameEn} &amp; {couple.groom.nicknameEn}
             </span>
             <Sparkles className="w-4 h-4" />
           </div>

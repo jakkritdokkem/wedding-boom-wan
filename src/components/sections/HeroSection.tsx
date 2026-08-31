@@ -66,9 +66,9 @@ export function HeroSection() {
           className="my-3 sm:my-5"
         >
           <h1 className="font-serif-luxury text-4xl sm:text-6xl md:text-7xl font-normal tracking-wide text-white">
-            <span className="text-[#f4f1ea] drop-shadow-md block sm:inline">{couple.groom.nicknameEn}</span>
-            <span className="text-[#c9ceb8] font-script font-normal mx-3 text-3xl sm:text-5xl">&</span>
             <span className="text-[#f4f1ea] drop-shadow-md block sm:inline">{couple.bride.nicknameEn}</span>
+            <span className="text-[#c9ceb8] font-script font-normal mx-3 text-3xl sm:text-5xl">&</span>
+            <span className="text-[#f4f1ea] drop-shadow-md block sm:inline">{couple.groom.nicknameEn}</span>
           </h1>
         </motion.div>
 
@@ -79,7 +79,7 @@ export function HeroSection() {
           transition={{ delay: 0.5, duration: 0.8 }}
           className="text-[#f4f1ea]/90 text-sm sm:text-base font-thai-serif tracking-wide space-y-1 mt-3"
         >
-          <p>{couple.groom.nameTh} &amp; {couple.bride.nameTh}</p>
+          <p>{couple.bride.nameTh} &amp; {couple.groom.nameTh}</p>
           <p className="text-xs sm:text-sm text-[#c9ceb8] font-mono tracking-widest">{couple.hashtag}</p>
         </motion.div>
 
