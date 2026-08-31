@@ -29,7 +29,7 @@ export const WEDDING_DATA: {
       nameEn: 'Miss Wannita Panyasin',
       nicknameTh: 'วัน',
       nicknameEn: 'Wan',
-      parentTh: 'บุตรีของ นายพาย และ นางสาวมิลอ',
+      parentTh: 'บุตรีของ นายพาย ปัญญาศิล และ นางสาวมิลอ ปัญญาศิล',
     },
     weddingDate: '2027-01-09T07:09:00+07:00', // 9 มกราคม 2570
     weddingDateDisplay: 'Saturday, January 9, 2027',
