@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Exact Palette Provided by User:
+       1. #47572a - Deep Olive Moss / Primary Dark Green
+       2. #66754e - Olive Green / Accent Green
+       3. #c9ceb8 - Muted Sage Mist / Soft Neutral Tint
+       4. #f4f1ea - Warm Alabaster Cream / Main Page Background
+       5. #f5ebe2 - Soft Linen Cream / Card & Secondary Background
+    */
+    --palette-deep-olive: #47572a;
+    --palette-olive-accent: #66754e;
+    --palette-sage-mist: #c9ceb8;
+    --palette-cream-bg: #f4f1ea;
+    --palette-linen-cream: #f5ebe2;
+
+    --color-bg-page: var(--palette-cream-bg);
+    --color-bg-card: #ffffff;
+    --color-bg-accent: var(--palette-linen-cream);
+    --color-text-main: #2d381c;
+    --color-text-muted: #576543;
+    --color-border-soft: #d8decb;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--color-bg-page);
+    color: var(--color-text-main);
+    font-feature-settings: "palt" 1;
+    overflow-x: hidden;
+  }
+}
+
+/* Elegant Typography Utilities */
+.font-serif-luxury {
+  font-family: var(--font-cormorant), "Playfair Display", Georgia, serif;
+}
+
+.font-script {
+  font-family: var(--font-script), cursive;
+}
+
+.font-thai-serif {
+  font-family: var(--font-serif-thai), "Prompt", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.font-thai-sans {
+  font-family: var(--font-body), "Prompt", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Glassmorphism with Exact Palette Colors */
+.glass-panel-cream {
+  background: rgba(245, 235, 226, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(201, 206, 184, 0.6);
+}
+
+.glass-panel-white {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(201, 206, 184, 0.5);
+}
+
+.glass-panel-olive {
+  background: rgba(71, 87, 42, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(201, 206, 184, 0.35);
+}
+
+/* Gradients with User Palette */
+.olive-gradient-btn {
+  background: linear-gradient(135deg, #47572a 0%, #5a6d3c 50%, #66754e 100%);
+}
+
+.olive-gradient-btn:hover {
+  background: linear-gradient(135deg, #374421 0%, #47572a 50%, #5a6d3c 100%);
+}
+
+.cream-gradient-btn {
+  background: linear-gradient(135deg, #ffffff 0%, #f5ebe2 100%);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f4f1ea;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c9ceb8;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #66754e;
+}
+
+/* Smooth keyframe animations */
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-float-gentle {
+  animation: floatGentle 5s ease-in-out infinite;
+}
