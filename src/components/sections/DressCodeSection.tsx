@@ -70,7 +70,7 @@ export function DressCodeSection() {
         </motion.div>
 
         {/* Color Palette Swatches */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-6 mt-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-5 mt-8">
           {dressCode.palette.map((color, index) => (
             <motion.div
               key={color.hex}

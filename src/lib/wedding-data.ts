@@ -149,6 +149,7 @@ export const WEDDING_DATA: {
       { name: 'เขียวเซจหมอก', nameEn: 'Sage Mist', hex: '#C9CEB8', textDark: true },
       { name: 'ครีมอลาบาสเตอร์', nameEn: 'Alabaster Cream', hex: '#F4F1EA', textDark: true },
       { name: 'ครีมลินินอบอุ่น', nameEn: 'Warm Linen', hex: '#F5EBE2', textDark: true },
+      { name: 'ชมพูกลีบบัว', nameEn: 'Blossom Pink', hex: '#F893B5', textDark: true },
     ],
   },
   venue: {
