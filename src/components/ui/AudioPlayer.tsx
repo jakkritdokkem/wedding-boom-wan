@@ -27,7 +27,7 @@ export function AudioPlayer() {
         width: '0',
         videoId: videoId,
         playerVars: {
-          autoplay: 0,
+          autoplay: 1,
           controls: 0,
           disablekb: 1,
           fs: 0,
@@ -41,6 +41,29 @@ export function AudioPlayer() {
           onReady: (event: any) => {
             setIsReady(true);
             event.target.setVolume(50);
+            
+            // พยายามสั่งเล่นอัตโนมัติทันที
+            try {
+              event.target.playVideo();
+            } catch {
+              // Browser policy may block
+            }
+
+            // ในกรณีที่ Browser บล็อก autoplay โดยไม่มี gesture ให้เล่นทันทีที่มีการแตะ/คลิก/เลื่อนหน้าเว็บครั้งแรก
+            const startOnFirstInteraction = () => {
+              try {
+                if (playerRef.current && typeof playerRef.current.playVideo === 'function') {
+                  playerRef.current.playVideo();
+                }
+              } catch {}
+              window.removeEventListener('click', startOnFirstInteraction);
+              window.removeEventListener('touchstart', startOnFirstInteraction);
+              window.removeEventListener('scroll', startOnFirstInteraction);
+            };
+
+            window.addEventListener('click', startOnFirstInteraction, { once: true, passive: true });
+            window.addEventListener('touchstart', startOnFirstInteraction, { once: true, passive: true });
+            window.addEventListener('scroll', startOnFirstInteraction, { once: true, passive: true });
           },
           onStateChange: (event: any) => {
             // YT.PlayerState.PLAYING = 1, PAUSED = 2, ENDED = 0
