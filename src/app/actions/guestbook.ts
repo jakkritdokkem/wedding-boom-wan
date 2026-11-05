@@ -1,13 +1,15 @@
 'use server';
 
-import { getGuestbook, saveGuestbookEntry } from '@/lib/db';
+import { getGuestbook, saveGuestbookEntry, likeGuestbookEntry } from '@/lib/db';
 import { GuestbookEntry } from '@/types/wedding';
 import { revalidatePath } from 'next/cache';
 
 export async function submitGuestbookAction(
   name: string,
   relationship: string,
-  message: string
+  message: string,
+  sticker: string = '✨',
+  cardTheme: 'cream' | 'olive' | 'sage' | 'white' = 'white'
 ): Promise<{ success: boolean; error?: string; data?: GuestbookEntry }> {
   try {
     if (!name || name.trim().length < 2) {
@@ -23,7 +25,9 @@ export async function submitGuestbookAction(
       relationship: relationship.trim() || 'แขกผู้มีเกียรติ',
       message: message.trim(),
       createdAt: new Date().toISOString(),
-      likesCount: 0,
+      likesCount: 1,
+      sticker,
+      cardTheme,
     };
 
     saveGuestbookEntry(newEntry);
@@ -32,6 +36,19 @@ export async function submitGuestbookAction(
   } catch (error) {
     console.error('Guestbook Server Action Error:', error);
     return { success: false, error: 'ไม่สามารถบันทึกคำอวยพรได้ กรุณาลองใหม่อีกครั้ง' };
+  }
+}
+
+export async function likeGuestbookAction(
+  id: string
+): Promise<{ success: boolean; data?: GuestbookEntry | null }> {
+  try {
+    const updated = likeGuestbookEntry(id);
+    revalidatePath('/');
+    return { success: true, data: updated };
+  } catch (error) {
+    console.error('Like Guestbook Error:', error);
+    return { success: false };
   }
 }
 

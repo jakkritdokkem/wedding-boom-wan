@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Cormorant_Garamond, Great_Vibes, Noto_Serif_Thai, Plus_Jakarta_Sans } from 'next/font/google';
+import { Cormorant_Garamond, Great_Vibes, Mitr } from 'next/font/google';
 import './globals.css';
 import { WEDDING_DATA } from '@/lib/wedding-data';
 import { ToastProvider } from '@/components/providers/ToastProvider';
@@ -20,25 +20,18 @@ const greatVibes = Great_Vibes({
   display: 'swap',
 });
 
-// Premium Thai Serif for headings (ราชพิธี/งานมงคล เรียบหรู)
-const notoSerifThai = Noto_Serif_Thai({
+// Mitr: Soft, friendly, modern rounded Thai & Latin typeface
+const mitr = Mitr({
   subsets: ['thai', 'latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-serif-thai',
-  display: 'swap',
-});
-
-// Clean, modern, highly readable body font
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-body',
+  weight: ['200', '300', '400', '500', '600'],
+  variable: '--font-mitr',
   display: 'swap',
 });
 
 const { couple, venue } = WEDDING_DATA;
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://boom-wan-wedding.vercel.app'),
   title: `${couple.bride.nicknameEn} & ${couple.groom.nicknameEn} Wedding Invitation | ${couple.hashtag}`,
   description: `ขอเรียนเชิญร่วมงานมงคลสมรสระหว่าง ${couple.bride.nameTh} (${couple.bride.nicknameTh}) & ${couple.groom.nameTh} (${couple.groom.nicknameTh}) ${couple.weddingDateThaiDisplay} ณ ${venue.name}`,
   openGraph: {
@@ -48,9 +41,9 @@ export const metadata: Metadata = {
     siteName: `${couple.bride.nicknameEn} & ${couple.groom.nicknameEn} Wedding`,
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&auto=format&fit=crop&q=80',
-        width: 1200,
-        height: 630,
+        url: '/images/prewedding/cs-613.jpg',
+        width: 1000,
+        height: 1500,
         alt: `${couple.bride.nicknameEn} & ${couple.groom.nicknameEn} Wedding Invitation`,
       },
     ],
@@ -61,7 +54,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: `${couple.bride.nicknameEn} & ${couple.groom.nicknameEn} Wedding Invitation`,
     description: `ขอเรียนเชิญร่วมงานมงคลสมรส ${couple.weddingDateThaiDisplay}`,
-    images: ['https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&auto=format&fit=crop&q=80'],
+    images: ['/images/prewedding/cs-613.jpg'],
   },
 };
 
@@ -80,9 +73,9 @@ export default function RootLayout({
   return (
     <html
       lang="th"
-      className={`${cormorant.variable} ${greatVibes.variable} ${notoSerifThai.variable} ${plusJakarta.variable} scroll-smooth`}
+      className={`${cormorant.variable} ${greatVibes.variable} ${mitr.variable} scroll-smooth`}
     >
-      <body className="font-thai-serif bg-[#FAF9F5] text-[#2C3E2D] antialiased selection:bg-[#5C715E]/20 selection:text-[#233324]">
+      <body className="font-thai-serif font-light bg-[#fbfaf7] text-[#2d381c] antialiased selection:bg-[#47572a]/15 selection:text-[#47572a]">
         <ToastProvider>
           {children}
         </ToastProvider>

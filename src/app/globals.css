@@ -2,25 +2,20 @@
 
 @layer base {
   :root {
-    /* Exact Palette Provided by User:
-       1. #47572a - Deep Olive Moss / Primary Dark Green
-       2. #66754e - Olive Green / Accent Green
-       3. #c9ceb8 - Muted Sage Mist / Soft Neutral Tint
-       4. #f4f1ea - Warm Alabaster Cream / Main Page Background
-       5. #f5ebe2 - Soft Linen Cream / Card & Secondary Background
-    */
-    --palette-deep-olive: #47572a;
-    --palette-olive-accent: #66754e;
-    --palette-sage-mist: #c9ceb8;
+    --palette-pure-white: #ffffff;
+    --palette-bright-cream: #fbfaf7;
     --palette-cream-bg: #f4f1ea;
     --palette-linen-cream: #f5ebe2;
+    --palette-sage-mist: #c9ceb8;
+    --palette-olive-accent: #66754e;
+    --palette-deep-olive: #47572a;
 
-    --color-bg-page: var(--palette-cream-bg);
+    --color-bg-page: var(--palette-bright-cream);
     --color-bg-card: #ffffff;
-    --color-bg-accent: var(--palette-linen-cream);
+    --color-bg-accent: var(--palette-cream-bg);
     --color-text-main: #2d381c;
     --color-text-muted: #576543;
-    --color-border-soft: #d8decb;
+    --color-border-soft: #e6e9de;
   }
 
   html {
@@ -31,8 +26,28 @@
   body {
     background-color: var(--color-bg-page);
     color: var(--color-text-main);
+    font-family: var(--font-mitr), -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 300;
     font-feature-settings: "palt" 1;
     overflow-x: hidden;
+    /* Subtle Fine Linen Weave Texture across the background */
+    background-image:
+      radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.9) 0%, transparent 50%),
+      radial-gradient(circle at 80% 85%, rgba(201, 206, 184, 0.16) 0%, transparent 55%),
+      repeating-linear-gradient(
+        0deg,
+        rgba(71, 87, 42, 0.012) 0px,
+        rgba(71, 87, 42, 0.012) 1px,
+        transparent 1px,
+        transparent 4px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(71, 87, 42, 0.012) 0px,
+        rgba(71, 87, 42, 0.012) 1px,
+        transparent 1px,
+        transparent 4px
+      );
   }
 }
 
@@ -46,46 +61,66 @@
 }
 
 .font-thai-serif {
-  font-family: var(--font-serif-thai), "Prompt", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-mitr), -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .font-thai-sans {
-  font-family: var(--font-body), "Prompt", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-mitr), -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Glassmorphism with Exact Palette Colors */
+/* Fabric & Drapery Surfaces */
+.fabric-card {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.96) 0%,
+    rgba(251, 250, 247, 0.94) 55%,
+    rgba(244, 241, 234, 0.9) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 24px 60px -15px rgba(71, 87, 42, 0.07),
+    0 4px 20px -2px rgba(71, 87, 42, 0.03),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+}
+
+.fabric-stitch {
+  position: relative;
+}
+
+.fabric-stitch::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: inherit;
+  border: 1px dashed rgba(102, 117, 78, 0.25);
+  pointer-events: none;
+}
+
+/* Satin & Silk Fold Sheen */
+.satin-swatch {
+  background-image: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0) 35%,
+    rgba(0, 0, 0, 0.06) 65%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+}
+
+/* Glassmorphism with Bright White & Cream Palette */
 .glass-panel-cream {
-  background: rgba(245, 235, 226, 0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(201, 206, 184, 0.6);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 20px 50px rgba(71, 87, 42, 0.06);
 }
 
 .glass-panel-white {
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(201, 206, 184, 0.5);
-}
-
-.glass-panel-olive {
-  background: rgba(71, 87, 42, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(201, 206, 184, 0.35);
-}
-
-/* Gradients with User Palette */
-.olive-gradient-btn {
-  background: linear-gradient(135deg, #47572a 0%, #5a6d3c 50%, #66754e 100%);
-}
-
-.olive-gradient-btn:hover {
-  background: linear-gradient(135deg, #374421 0%, #47572a 50%, #5a6d3c 100%);
-}
-
-.cream-gradient-btn {
-  background: linear-gradient(135deg, #ffffff 0%, #f5ebe2 100%);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 20px 50px rgba(71, 87, 42, 0.06);
 }
 
 /* Custom Scrollbar */
@@ -95,7 +130,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f4f1ea;
+  background: #fbfaf7;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -117,6 +152,19 @@
   }
 }
 
+@keyframes breezeSway {
+  0%, 100% {
+    transform: rotate(-1deg) scale(1);
+  }
+  50% {
+    transform: rotate(1deg) scale(1.015);
+  }
+}
+
 .animate-float-gentle {
   animation: floatGentle 5s ease-in-out infinite;
+}
+
+.animate-breeze {
+  animation: breezeSway 7s ease-in-out infinite;
 }

@@ -54,6 +54,7 @@ export interface DressCodeColor {
   nameEn: string;
   hex: string;
   textDark?: boolean;
+  styleHintTh?: string;
 }
 
 export interface VenueInfo {
@@ -108,4 +109,6 @@ export interface GuestbookEntry {
   message: string;
   createdAt: string;
   likesCount?: number;
+  sticker?: string;
+  cardTheme?: 'cream' | 'olive' | 'sage' | 'white';
 }

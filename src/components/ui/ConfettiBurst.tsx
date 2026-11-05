@@ -6,7 +6,7 @@ export function fireWeddingConfetti() {
   const count = 200;
   const defaults = {
     origin: { y: 0.7 },
-    colors: ['#D4AF37', '#F3E5AB', '#8F9E8B', '#D8A49B', '#FFFFFF'],
+    colors: ['#FFFFFF', '#F4F1EA', '#F5EBE2', '#C9CEB8', '#66754E', '#47572A'],
   };
 
   function fire(particleRatio: number, opts: confetti.Options) {

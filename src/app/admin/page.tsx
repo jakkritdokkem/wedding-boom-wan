@@ -1,8 +1,9 @@
 import React from 'react';
 import { getRsvps, getGuestbook } from '@/lib/db';
 import { WEDDING_DATA } from '@/lib/wedding-data';
-import { Users, CheckCircle, XCircle, Utensils, Clock, MessageSquareQuote, Heart, Calendar, Phone, UserCheck } from 'lucide-react';
+import { Users, CheckCircle, XCircle, Utensils, Clock, MessageSquareQuote } from 'lucide-react';
 import Link from 'next/link';
+import { AdminInteractiveClient } from './AdminInteractiveClient';
 
 export const dynamic = 'force-dynamic';
 
@@ -34,10 +35,10 @@ export default async function AdminDashboardPage() {
               <span>{couple.hashtag}</span>
             </div>
             <h1 className="text-2xl sm:text-4xl font-bold text-[#47572a] mt-1 font-serif-luxury">
-              {couple.bride.nicknameEn} &amp; {couple.groom.nicknameEn} — รายชื่อแขก &amp; คำอวยพร
+              {couple.bride.nicknameEn} &amp; {couple.groom.nicknameEn} — ระบบจัดการรายชื่อแขก &amp; การ์ดเชิญ
             </h1>
             <p className="text-xs sm:text-sm text-[#576543] mt-1">
-              ข้อมูลการตอบรับเข้าร่วมงาน (RSVP) และคำอวยพรทั้งหมด
+              ข้อมูลการตอบรับเข้าร่วมงาน (RSVP), เครื่องมือสร้างลิงก์เชิญรายบุคคล และคำอวยพรทั้งหมด
             </p>
           </div>
 
@@ -147,97 +148,8 @@ export default async function AdminDashboardPage() {
           </div>
         </div>
 
-        {/* RSVP Table */}
-        <div className="bg-white rounded-3xl border border-[#c9ceb8]/60 shadow-sm overflow-hidden">
-          <div className="p-5 sm:p-6 border-b border-[#c9ceb8]/40 flex items-center justify-between">
-            <h2 className="font-bold text-lg text-[#47572a] flex items-center gap-2">
-              <UserCheck className="w-5 h-5 text-[#66754e]" />
-              <span>รายชื่อผู้ตอบรับทั้งหมด ({rsvps.length})</span>
-            </h2>
-          </div>
-
-          {rsvps.length === 0 ? (
-            <div className="py-16 text-center text-[#576543]">
-              <p className="text-sm">ยังไม่มีผู้ตอบรับการร่วมงานในขณะนี้</p>
-              <p className="text-xs text-[#66754e] mt-1">เมื่อแขกกรอกฟอร์ม RSVP ข้อมูลจะปรากฏที่นี่ทันที</p>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs sm:text-sm">
-                <thead className="bg-[#f5ebe2] text-[#47572a] font-semibold border-b border-[#c9ceb8]/40">
-                  <tr>
-                    <th className="p-4">เวลาที่ตอบรับ</th>
-                    <th className="p-4">ชื่อ-นามสกุล</th>
-                    <th className="p-4">เบอร์โทรศัพท์</th>
-                    <th className="p-4">ความสัมพันธ์</th>
-                    <th className="p-4 text-center">สถานะ</th>
-                    <th className="p-4 text-center">จำนวน (ท่าน)</th>
-                    <th className="p-4">รอบที่ร่วม</th>
-                    <th className="p-4">อาหาร</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#f5ebe2]">
-                  {rsvps.map((rsvp) => (
-                    <tr key={rsvp.id} className="hover:bg-[#f4f1ea]/50 transition">
-                      <td className="p-4 text-stone-500 font-mono text-[11px] whitespace-nowrap">
-                        {new Date(rsvp.createdAt).toLocaleString('th-TH', {
-                          day: 'numeric',
-                          month: 'short',
-                          year: '2-digit',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })}
-                      </td>
-                      <td className="p-4 font-semibold text-[#47572a]">{rsvp.fullName}</td>
-                      <td className="p-4 font-mono text-stone-700">{rsvp.phone}</td>
-                      <td className="p-4 text-stone-600">
-                        {rsvp.relationship === 'groom_guest'
-                          ? 'แขกเจ้าบ่าว'
-                          : rsvp.relationship === 'bride_guest'
-                          ? 'แขกเจ้าสาว'
-                          : rsvp.relationship === 'vip_guest'
-                          ? 'แขกผู้ใหญ่'
-                          : 'ญาติ / ครอบครัว'}
-                      </td>
-                      <td className="p-4 text-center">
-                        {rsvp.attendance === 'attending' ? (
-                          <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-semibold">
-                            สะดวก
-                          </span>
-                        ) : (
-                          <span className="px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 text-[11px] font-semibold">
-                            ไม่สะดวก
-                          </span>
-                        )}
-                      </td>
-                      <td className="p-4 text-center font-bold tabular-nums">
-                        {rsvp.attendance === 'attending' ? rsvp.guestCount : '-'}
-                      </td>
-                      <td className="p-4 text-stone-600 text-xs">
-                        {rsvp.attendance === 'attending'
-                          ? rsvp.session === 'both'
-                            ? 'ทั้งสองช่วง'
-                            : rsvp.session === 'morning_only'
-                            ? 'พิธีเช้า'
-                            : 'งานเลี้ยงฉลอง'
-                          : '-'}
-                      </td>
-                      <td className="p-4 text-stone-600 text-xs">
-                        {rsvp.dietary === 'allergic' && rsvp.dietaryDetails
-                          ? `แพ้: ${rsvp.dietaryDetails}`
-                          : rsvp.dietary === 'vegetarian'
-                          ? 'มังสวิรัติ'
-                          : rsvp.dietary === 'halal'
-                          ? 'ฮาลาล'
-                          : 'ปกติ'}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
+        {/* Client Interactive Tools: Link Generator + Filterable RSVP Table + CSV Export */}
+        <AdminInteractiveClient rsvps={rsvps} guestbook={guestbook} />
       </div>
     </div>
   );
