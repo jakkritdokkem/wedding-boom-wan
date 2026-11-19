@@ -1,78 +1,107 @@
 import { RsvpRecord, GuestbookEntry } from "@/types/wedding";
 import fs from "fs";
+import os from "os";
 import path from "path";
 
-const DB_DIR = path.join(process.cwd(), "data");
-const RSVP_FILE = path.join(DB_DIR, "rsvps.json");
-const GUESTBOOK_FILE = path.join(DB_DIR, "guestbook.json");
+const BUNDLED_DB_DIR = path.join(process.cwd(), "data");
+const TMP_DB_DIR = path.join(os.tmpdir(), "wedding-data");
 
 const INITIAL_GUESTBOOK: GuestbookEntry[] = [];
 
-function ensureDb() {
-  if (!fs.existsSync(DB_DIR)) {
-    fs.mkdirSync(DB_DIR, { recursive: true });
-  }
-  if (!fs.existsSync(RSVP_FILE)) {
-    fs.writeFileSync(RSVP_FILE, JSON.stringify([], null, 2), "utf-8");
-  }
-  if (!fs.existsSync(GUESTBOOK_FILE)) {
-    fs.writeFileSync(GUESTBOOK_FILE, JSON.stringify(INITIAL_GUESTBOOK, null, 2), "utf-8");
-  } else {
+function resolveDbDir(): string {
+  try {
+    if (!fs.existsSync(BUNDLED_DB_DIR)) {
+      fs.mkdirSync(BUNDLED_DB_DIR, { recursive: true });
+    }
+    fs.accessSync(BUNDLED_DB_DIR, fs.constants.W_OK);
+    return BUNDLED_DB_DIR;
+  } catch {
     try {
-      const currentRaw = fs.readFileSync(GUESTBOOK_FILE, "utf-8").trim();
-      const parsed = currentRaw ? JSON.parse(currentRaw) : [];
-      if (Array.isArray(parsed) && parsed.length === 0) {
-        fs.writeFileSync(GUESTBOOK_FILE, JSON.stringify(INITIAL_GUESTBOOK, null, 2), "utf-8");
+      if (!fs.existsSync(TMP_DB_DIR)) {
+        fs.mkdirSync(TMP_DB_DIR, { recursive: true });
       }
+      return TMP_DB_DIR;
     } catch {
-      fs.writeFileSync(GUESTBOOK_FILE, JSON.stringify(INITIAL_GUESTBOOK, null, 2), "utf-8");
+      return BUNDLED_DB_DIR;
     }
   }
 }
 
-export function getRsvps(): RsvpRecord[] {
-  ensureDb();
-  try {
-    const raw = fs.readFileSync(RSVP_FILE, "utf-8");
-    return JSON.parse(raw);
-  } catch (error) {
-    console.error("Error reading RSVP DB:", error);
-    return [];
+function getFilePath(filename: string): string {
+  const dir = resolveDbDir();
+  const target = path.join(dir, filename);
+
+  // If using /tmp fallback, seed from bundled data/ if present
+  if (dir !== BUNDLED_DB_DIR && !fs.existsSync(target)) {
+    const bundled = path.join(BUNDLED_DB_DIR, filename);
+    if (fs.existsSync(bundled)) {
+      try {
+        fs.copyFileSync(bundled, target);
+      } catch {
+        // Ignore copy errors
+      }
+    }
   }
+
+  return target;
+}
+
+function readJsonArray<T>(filename: string, fallback: T[]): T[] {
+  const filePath = getFilePath(filename);
+  try {
+    if (!fs.existsSync(filePath)) {
+      try {
+        fs.writeFileSync(filePath, JSON.stringify(fallback, null, 2), "utf-8");
+      } catch {
+        // Ignore write error on read-only filesystem
+      }
+      return fallback;
+    }
+    const raw = fs.readFileSync(filePath, "utf-8").trim();
+    if (!raw) return fallback;
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : fallback;
+  } catch (error) {
+    console.error(`Error reading ${filename}:`, error);
+    return fallback;
+  }
+}
+
+function writeJsonArray<T>(filename: string, data: T[]): void {
+  const filePath = getFilePath(filename);
+  try {
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8");
+  } catch (error) {
+    console.error(`Error writing ${filename}:`, error);
+  }
+}
+
+export function getRsvps(): RsvpRecord[] {
+  return readJsonArray<RsvpRecord>("rsvps.json", []);
 }
 
 export function saveRsvp(record: RsvpRecord): void {
-  ensureDb();
   const current = getRsvps();
   current.unshift(record);
-  fs.writeFileSync(RSVP_FILE, JSON.stringify(current, null, 2), "utf-8");
+  writeJsonArray("rsvps.json", current);
 }
 
 export function getGuestbook(): GuestbookEntry[] {
-  ensureDb();
-  try {
-    const raw = fs.readFileSync(GUESTBOOK_FILE, "utf-8");
-    return JSON.parse(raw);
-  } catch (error) {
-    console.error("Error reading Guestbook DB:", error);
-    return INITIAL_GUESTBOOK;
-  }
+  return readJsonArray<GuestbookEntry>("guestbook.json", INITIAL_GUESTBOOK);
 }
 
 export function saveGuestbookEntry(entry: GuestbookEntry): void {
-  ensureDb();
   const current = getGuestbook();
   current.unshift(entry);
-  fs.writeFileSync(GUESTBOOK_FILE, JSON.stringify(current, null, 2), "utf-8");
+  writeJsonArray("guestbook.json", current);
 }
 
 export function likeGuestbookEntry(id: string): GuestbookEntry | null {
-  ensureDb();
   const current = getGuestbook();
   const index = current.findIndex((item) => item.id === id);
   if (index === -1) return null;
 
   current[index].likesCount = (current[index].likesCount || 0) + 1;
-  fs.writeFileSync(GUESTBOOK_FILE, JSON.stringify(current, null, 2), "utf-8");
+  writeJsonArray("guestbook.json", current);
   return current[index];
 }
