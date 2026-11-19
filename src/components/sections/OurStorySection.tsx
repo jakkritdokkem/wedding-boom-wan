@@ -44,7 +44,7 @@ export function OurStorySection() {
           transition={{ delay: 0.2, duration: 0.6 }}
           className="text-[#66754e] text-sm sm:text-base leading-relaxed font-thai-serif"
         >
-          จากวันแรกที่ได้พบ สู่การเดินทางที่เติมเต็มหัวใจ และก้าวสู่คำมั่นสัญญาตลอดไป
+          12 ปีแห่งความผูกพัน จากวันแรกในปี 2014 สู่การตัดสินใจเริ่มต้นชีวิตคู่ในปี 2027
         </motion.p>
       </div>
 
@@ -70,17 +70,17 @@ export function OurStorySection() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2 text-xs sm:text-sm text-[#47572a]">
             <div className="p-6 bg-white/80 rounded-[28px] shadow-[0_10px_30px_rgba(71,87,42,0.04)]">
               <span className="inline-block px-3 py-0.5 rounded-full bg-[#f4f1ea] text-[#66754e] text-[11px] mb-2 font-thai-serif">
-                ฝ่ายเจ้าสาว ({couple.bride.nicknameTh})
-              </span>
-              <p className="font-semibold text-[#47572a] text-base font-thai-serif">{couple.bride.nameTh}</p>
-              <p className="text-[#66754e] text-xs mt-1 font-thai-serif">{couple.bride.parentTh}</p>
-            </div>
-            <div className="p-6 bg-white/80 rounded-[28px] shadow-[0_10px_30px_rgba(71,87,42,0.04)]">
-              <span className="inline-block px-3 py-0.5 rounded-full bg-[#f4f1ea] text-[#66754e] text-[11px] mb-2 font-thai-serif">
                 ฝ่ายเจ้าบ่าว ({couple.groom.nicknameTh})
               </span>
               <p className="font-semibold text-[#47572a] text-base font-thai-serif">{couple.groom.nameTh}</p>
               <p className="text-[#66754e] text-xs mt-1 font-thai-serif">{couple.groom.parentTh}</p>
+            </div>
+            <div className="p-6 bg-white/80 rounded-[28px] shadow-[0_10px_30px_rgba(71,87,42,0.04)]">
+              <span className="inline-block px-3 py-0.5 rounded-full bg-[#f4f1ea] text-[#66754e] text-[11px] mb-2 font-thai-serif">
+                ฝ่ายเจ้าสาว ({couple.bride.nicknameTh})
+              </span>
+              <p className="font-semibold text-[#47572a] text-base font-thai-serif">{couple.bride.nameTh}</p>
+              <p className="text-[#66754e] text-xs mt-1 font-thai-serif">{couple.bride.parentTh}</p>
             </div>
           </div>
         </div>

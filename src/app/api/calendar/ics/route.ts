@@ -10,7 +10,7 @@ export async function GET() {
   const dtStart = '20270109T000900Z';
   const dtEnd = '20270109T080000Z';
   const summary = `Wedding Celebration: ${couple.groom.nicknameEn} & ${couple.bride.nicknameEn} (${couple.groom.nameTh} & ${couple.bride.nameTh})`;
-  const description = `พิธีมงคลสมรสระหว่าง ${couple.groom.nameTh} (${couple.groom.nicknameTh}) และ ${couple.bride.nameTh} (${couple.bride.nicknameTh})\\n\\nกำหนดการ:\\n07:09 น. พิธีเจริญพระพุทธมนต์\\n08:19 น. พิธีแห่ขันหมาก\\n09:09 น. พิธีสวมแหวนหมั้น\\n09:49 น. พิธีหลั่งน้ำพระพุทธมนต์\\n11:30 น. งานเลี้ยงฉลองมงคลสมรส\\n\\nสถานที่: ${venue.name} (${venue.hall})\\nHashtag: ${couple.hashtag}`;
+  const description = `พิธีมงคลสมรสระหว่าง ${couple.groom.nameTh} (${couple.groom.nicknameTh}) และ ${couple.bride.nameTh} (${couple.bride.nicknameTh})\\n\\nกำหนดการ:\\n07.09 น. พิธีเจริญพระพุทธมนต์\\n08.39 น. พิธีแห่ขบวนขันหมาก\\n09.09 น. พิธีรับไหว้ผู้ใหญ่\\n11.30 น. พิธีฉลองมงคลสมรส\\n\\nสถานที่: ${venue.name} (${venue.hall})\\nHashtag: ${couple.hashtag}`;
   const location = `${venue.name}, ${venue.hall} (${venue.address})`;
 
   const icsContent = [

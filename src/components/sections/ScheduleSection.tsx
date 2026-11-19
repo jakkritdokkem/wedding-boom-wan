@@ -79,7 +79,7 @@ export function ScheduleSection() {
         </div>
 
         {/* Soft Arch Ceremony Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {schedule.map((item, index) => {
             const IconComponent = ICON_MAP[item.iconName as keyof typeof ICON_MAP] || Sparkles;
 

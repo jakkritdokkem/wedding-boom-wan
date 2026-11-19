@@ -25,8 +25,8 @@ export interface BankAccount {
   bankName: string;
   accountNumber: string;
   accountName: string;
-  promptPayId: string;
-  qrCodeUrl: string;
+  promptPayId?: string;
+  qrCodeUrl?: string;
 }
 
 export interface TimelineEvent {
